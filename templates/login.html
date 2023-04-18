@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Add Post</title>
+</head>
+
+<body>
+    <div class="card p-5">
+
+        {% for message in messages %} {% if message.tags == 'success' %}
+        <div class="alert alert-success">
+            {{ message|safe }}
+        </div>
+        {% else %}
+        <div class="alert alert-danger">
+            {{ message|safe }}
+        </div>
+        {% endif %} {% endfor %}
+
+        <form class="row g-3" method="post" action="/login">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Username</label>
+                <input type="text" class="form-control" id="inputEmail4" name="username" required>
+            </div>
+            <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Password</label>
+                <input type="password" class="form-control" id="inputPassword4" name="password" required>
+            </div>
+            <div class="col-12 my-2">
+                <input type="submit" class="btn btn-primary" value="Sign in">
+            </div>
+        </form>
+
+        <div class="col-12 my-2">
+            <button class="btn btn-primary" onclick="goHome()">Go Home</button>
+        </div>
+    </div>
+
+    <script>
+        function goHome() {
+            window.location.href = "/";
+        }
+    </script>
+</body>
+
+</html>

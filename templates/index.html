@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="card bg-info p-5">
+
+        {% for message in messages %} {% if message.tags == 'success' %}
+        <div class="alert alert-success">
+            {{ message|safe }}
+        </div>
+        {% else %}
+        <div class="alert alert-danger">
+            {{ message|safe }}
+        </div>
+        {% endif %} {% endfor %}
+
+        <h1 class="text-center">Hello, Welcome to Soham's Devlog</h1>
+        {% if user.is_authenticated %}
+        <div class="row d-flex justify-content-center">
+            <a href="/add" class="btn btn-primary">Add Post</a>
+            <a href="/logout" class="btn btn-primary">Logout</a>
+        </div> {% else %}
+        <div class="row d-flex justify-content-center">
+            <a href="/login" class="btn btn-primary">Login</a>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if posts|length > 0%} {% for post in posts reversed%}
+    <div class="card my-2 bg-danger">
+        <div class="card-body">
+            <h3 class="card-title">{{post.title}}</h3>
+            <h6 class="card-text">Date: {{post.created_at|date:"d,M,Y"}}</h6>
+            <p class="card-text">{{ post.content|truncatewords:15 }}</p>
+            <a href="/view/{{post.id}}" class="btn btn-primary">Continue reading</a>
+        </div>
+    </div>
+    {% endfor %} {% else %}
+    <div class="card bg-danger p-5">
+        <h1 class="text-center">No posts yet</h1>
+    </div>
+    {% endif %}
+</body>
+
+</html>
